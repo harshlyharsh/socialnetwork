@@ -1,19 +1,27 @@
 import {useState} from "react";
 import axios from "axios";
+import {toast} from "react-toastify";
+import {Modal} from "antd";
+import Link from "next/Link";
 const Register = () => {
     const[name, setName]=useState("");
     const[email, setEmail]=useState("");
     const[password, setPassword]=useState("");
     const[secret, setSecret]=useState("");
+    const [ok,setOk] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(name,email,password,secret);
-        axios.post('http://localhost:8000/api/register',{
+     try{
+   // console.log(name,email,password,secret);
+   const {data} = await   axios.post('http://localhost:8000/api/register',{
             name,email,password,secret,
-        })
-        .then((res)=>console.log(res))
-        .catch((err)=>console.log(err));
+        });
+        setOk(data.ok);
+     }
+     catch(err){
+        toast.error(err.response.data)
+     }
     };
 
     return (
@@ -24,7 +32,7 @@ const Register = () => {
                 </div>
                 </div>
                 <div className="row py-5">
-                    <div className="col">
+                    <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}> <div className="form-group p-2">
 <small><label className="text-muted">Your name</label></small>
 <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" placeholder="Enter name" />
@@ -57,6 +65,15 @@ const Register = () => {
                        <button className="btn btn-primary col-12">Submit</button>
                        </div>
                         </form>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <Modal title="Congratulations" visible={ok} onCancel={()=>setOk(false)} footer={null}
+                    >
+   <p>You have successfully registered.</p>        
+   <Link href="/Login" className="btn btn-smprimary btn-">Login</Link>           
+                    </Modal>
                 </div>
             </div>
         </div>
