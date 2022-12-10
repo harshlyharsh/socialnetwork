@@ -14,9 +14,13 @@ const Register = () => {
         e.preventDefault();
      try{
    // console.log(name,email,password,secret);
-   const {data} = await   axios.post('http://localhost:8000/api/register',{
+   const {data} = await   axios.post(`${process.env.NEXT_PUBLIC_API}/register`,{
             name,email,password,secret,
         });
+        setName('')
+        setEmail('')
+        setPassword('')
+        setSecret('')
         setOk(data.ok);
      }
      catch(err){
@@ -62,7 +66,7 @@ const Register = () => {
                             type="text" className="form-control" placeholder="Write your answer here" />
                         </div>
                        <div className="form-group p-2">
-                       <button className="btn btn-primary col-12">Submit</button>
+                       <button disabled={!name || !email || !password || !secret} className="btn btn-primary col-12">Submit</button>
                        </div>
                         </form>
                 </div>
@@ -72,7 +76,7 @@ const Register = () => {
                     <Modal title="Congratulations" visible={ok} onCancel={()=>setOk(false)} footer={null}
                     >
    <p>You have successfully registered.</p>        
-   <Link href="/Login" className="btn btn-smprimary btn-">Login</Link>           
+   <Link href="/login" className="btn btn-smprimary btn-">Login</Link>           
                     </Modal>
                 </div>
             </div>
