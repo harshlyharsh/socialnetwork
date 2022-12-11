@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {Modal} from "antd";
 import Link from "next/Link";
 import AuthForm from "../components/forms/AuthForm";
+
 const Register = () => {
     const[name, setName]=useState("");
     const[email, setEmail]=useState("");
@@ -50,6 +51,7 @@ const Register = () => {
                         setName={setName}
                         email={email}
                         setEmail={setEmail}
+                        password={password}
                         setPassword={setPassword}
                         secret={secret}
                         setSecret={setSecret}

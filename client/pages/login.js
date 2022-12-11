@@ -42,6 +42,7 @@ const Login = () => {
                     <AuthForm handleSubmit={handleSubmit}
                         email={email}
                         setEmail={setEmail}
+                        password={password}
                         setPassword={setPassword}
                         loading={loading}
                             page="login"

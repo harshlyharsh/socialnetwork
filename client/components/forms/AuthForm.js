@@ -1,12 +1,12 @@
 import {SyncOutlined} from "@ant-design/icons";
 
-const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword,secret,setSecret,loading,page}) => {
+const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword,secret,setSecret,loading,page,}) => (
     
 <form onSubmit={handleSubmit}> { page !== "login" && (<div className="form-group p-2">
 <small><label className="text-muted">Your name</label></small>
 <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" placeholder="Enter name" />
                         </div>)}
-                       { page !== "login" && ( <>
+                       
                         <div className="form-group p-2">
 <small><label className="text-muted">Email address</label></small>
 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" placeholder="Enter name" />
@@ -15,6 +15,7 @@ const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword
 <small><label className="text-muted">Password</label></small>
 <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" placeholder="Enter name" />
                         </div>
+                        { page !== "login" && ( <>
                         <div className="form-group p-2">
                         <small><label className="text-muted">Pick a question</label></small> 
                         <select className="form-control">
@@ -37,6 +38,6 @@ const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword
                        </div>
                         </form>
                       
-};
+);
 
 export default AuthForm;
