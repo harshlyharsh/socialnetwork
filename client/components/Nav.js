@@ -3,8 +3,8 @@ const Nav = () => {
     return (
        <nav className="nav d-flex justify-content-between" style={{backgroundColor:"blue"}}>
   
-  <Link href="/" className="nav-link text-light">
-Home
+  <Link href="/" className="nav-link text-light logo">
+socialnetwork
   </Link>
  
   
