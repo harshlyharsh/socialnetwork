@@ -1,10 +1,16 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import { UserContext } from "../context";
 import { useRouter } from "next/router";
 
 const Nav = () => {
+  const [current, setCurrent] = useState("");
   const [state, setState]= useContext(UserContext);
+
+  useEffect(() => {
+    process.browser && setCurrent(window.location.pathname);
+  }, [process.browser && window.location.pathname]);
+
 
   const router = useRouter();
 
@@ -17,27 +23,27 @@ router.push("/login");
     return (
        <nav className="nav d-flex justify-content-between" style={{backgroundColor:"blue"}}>
   
-  <Link href="/" className="nav-link text-light logo">
+  <Link href="/" className={`nav-link text-light logo ${current==="/" && "active"}` }>
 socialnetwork
   </Link>
 
   {state !==null ? (
     <>
-    <Link href="/user/dashboard" className="nav-link text-light">
+    <Link href="/user/dashboard" className={`nav-link text-light ${current==="/user/dashboard" && "active"}` }>
     {state && state.user && state.user.name}
   </Link>
 
-    <Link onClick={logout} className="nav-link text-light">
-Logout
-  </Link>
+  <a onClick={logout} className="nav-link text-light">
+            Logout
+          </a>
     </>
   ) : (<>
-  <Link href="/login" className="nav-link text-light">
+  <Link href="/login" className={`nav-link text-light ${current==="/login" && "active"}` }>
 Login
   </Link>
  
   
-  <Link href="/register" className="nav-link text-light">
+  <Link href="/register" className={`nav-link text-light ${current==="/register" && "active"}` }>
 Register
   </Link>
   </>)}

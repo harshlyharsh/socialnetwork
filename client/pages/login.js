@@ -1,4 +1,4 @@
-import {useState, useContext} from "react";
+import {useState, useContext } from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {Modal} from "antd";
@@ -40,6 +40,8 @@ const Login = () => {
      }
     };
 
+    if(state && state.token) router.push("/");
+
     return (
         <div className="container-fluid">
             <div className="row py-5 bg-default-image ">
@@ -48,7 +50,7 @@ const Login = () => {
                 </div>
                 </div>
 
-                {loading ? <h1>Loading</h1> : ""}
+            
 
                 <div className="row py-5">
                     <div className="col-md-6 offset-md-3">

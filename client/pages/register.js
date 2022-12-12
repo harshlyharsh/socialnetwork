@@ -1,9 +1,11 @@
-import {useState} from "react";
+import {useState, useContext } from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {Modal} from "antd";
 import Link from "next/Link";
 import AuthForm from "../components/forms/AuthForm";
+import { UserContext } from "../context";
+import { useRouter } from "next/router";
 
 const Register = () => {
     const[name, setName]=useState("");
@@ -12,6 +14,9 @@ const Register = () => {
     const[secret, setSecret]=useState("");
     const [ok,setOk] = useState(false);
     const [loading, setLoading]=useState(false);
+
+     const [state] = useContext(UserContext);
+     const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +39,8 @@ const Register = () => {
      }
     };
 
+    if(state && state.token) router.push("/");
+
     return (
         <div className="container-fluid">
             <div className="row py-5 bg-default-image ">
@@ -42,7 +49,7 @@ const Register = () => {
                 </div>
                 </div>
 
-                {loading ? <h1>Loading</h1> : ""}
+               
 
                 <div className="row py-5">
                     <div className="col-md-6 offset-md-3">
@@ -64,6 +71,9 @@ const Register = () => {
                     <Modal title="Congratulations" visible={ok} onCancel={()=>setOk(false)} footer={null}
                     >
    <p>You have successfully registered.</p>        
+   <Link href="/login" className="btn btn-primary btn-sm">
+            Login
+            </Link>
             
                     </Modal>
                 </div>
