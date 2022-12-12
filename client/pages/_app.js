@@ -5,7 +5,8 @@ import Head from "next/head";
 import { ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import 'antd/dist/antd.css';
-export default function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps }) {
     return (
     <UserProvider>
     <Head>
@@ -15,5 +16,7 @@ export default function MyApp({ Component, pageProps }) {
 <ToastContainer postion="top-center"/>
 <Component {...pageProps} />
 </UserProvider>
-    )
+    );
   } 
+
+  export default MyApp;
