@@ -60,7 +60,7 @@ const ForgotnewPasswordForm = ({
       <button
         type="submit"
         className="btn btn-block btn-primary col-12"
-        disabled={!email || !newPassword || !secret || loading}
+        disabled={!email || !newPassword || !secret}
       >
         {loading ? <SyncOutlined spin className="py-1" /> : "Submit"}
       </button>
