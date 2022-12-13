@@ -13,7 +13,7 @@ const ForgotnewPasswordForm = ({
 }) => {
   return (
     <form onSubmit={handleSubmit}>
-      <div className="form-group">
+      <div className="form-group p-2">
         <label className="text-muted">Email address</label>
         <input
           type="email"
@@ -23,7 +23,7 @@ const ForgotnewPasswordForm = ({
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="form-group">
+      <div className="form-group p-2">
         <label className="text-muted">New password</label>
         <input
           type="password"
@@ -35,7 +35,7 @@ const ForgotnewPasswordForm = ({
       </div>
       {page !== "login" && (
         <>
-          <div className="form-group">
+          <div className="form-group p-2">
             <label className="text-muted">Answer your secret question</label>
 
             <select className="form-control">
@@ -45,7 +45,7 @@ const ForgotnewPasswordForm = ({
             </select>
           </div>
 
-          <div className="form-group">
+          <div className="form-group p-2">
             <input
               type="text"
               className="form-control"
@@ -59,7 +59,7 @@ const ForgotnewPasswordForm = ({
 
       <button
         type="submit"
-        className="btn btn-block btn-primary"
+        className="btn btn-block btn-primary col-12"
         disabled={!email || !newPassword || !secret || loading}
       >
         {loading ? <SyncOutlined spin className="py-1" /> : "Submit"}
