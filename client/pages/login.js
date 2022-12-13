@@ -24,15 +24,19 @@ const Login = () => {
    const {data} = await   axios.post(`/login`,{
             email,password,
         });
-
-        // update context
-        setState({
-            user: data.user,
-            token :data.token,
-        });
-        // save in local storage
-        window.localStorage.setItem('auth',JSON.stringify(data));
+        if (data.error) {
+            toast.error(data.error);
+            setLoading(false);
+          } else {
+            // save in local storage
+            window.localStorage.setItem("auth", JSON.stringify(data));
+            // save in context
+            setState({
+              user: data.user,
+              token: data.token,
+            });
        router.push("/");
+        }
      }
      catch(err){
         toast.error(err.response.data)

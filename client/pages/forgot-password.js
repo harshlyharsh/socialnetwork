@@ -17,26 +17,32 @@ const ForgotPassword = () => {
   const [state] = useContext(UserContext);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  
+  
+const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      const { data } = await axios.post("/forgot-password", {
+      // console.log(name, email, password, secret);
+      setLoading(true);
+      const { data } = await axios.post(`/forgot-password`, {
         email,
         newPassword,
         secret,
       });
-
+  
+      console.log("forgot password res => ", data);
+  
       if (data.error) {
         toast.error(data.error);
         setLoading(false);
       }
+  
       if (data.success) {
         setEmail("");
         setNewPassword("");
         setSecret("");
-        setLoading(false);
         setOk(true);
+        setLoading(false);
       }
     } catch (err) {
       console.log(err);
