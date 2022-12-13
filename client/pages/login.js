@@ -71,7 +71,17 @@ const Login = () => {
                     } <Link href="/register" className="btn btn-smprimary btn-">Register</Link></p>
                 </div>
             </div>
+            <div className="row">
+        <div className="col text-center">
+          <Link href="/forgot-password" className="text-danger">Forgot password
+          </Link>
         </div>
+      </div>
+        </div>
+
+        
+
+        
     )
 }
 export default Login;
