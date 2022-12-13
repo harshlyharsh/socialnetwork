@@ -21,7 +21,7 @@ const Login = () => {
      try{
    // console.log(name,email,password,secret);
    setLoading(true);
-   const {data} = await   axios.post(`${process.env.NEXT_PUBLIC_API}/login`,{
+   const {data} = await   axios.post(`/login`,{
             email,password,
         });
 
