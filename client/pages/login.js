@@ -21,7 +21,7 @@ const Login = () => {
      try{
    // console.log(name,email,password,secret);
    setLoading(true);
-   const {data} = await   axios.post(`${process.env.NEXT_PUBLIC_API}/login`,{
+   const {data} = await   axios.post(`/login`,{
             email,password,
         });
 
@@ -71,6 +71,13 @@ const Login = () => {
                     } <Link href="/register" className="btn btn-smprimary btn-">Register</Link></p>
                 </div>
             </div>
+{/* forgot-password link */}
+            <div className="row">
+                <div className="col">
+                    <p className="text-center"> <Link href="/forgot-password" className="btn btn-smprimary btn-">Forgot Password</Link></p>
+                </div>
+            </div>
+
         </div>
     )
 }

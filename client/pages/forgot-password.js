@@ -3,14 +3,13 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {Modal} from "antd";
 import Link from "next/Link";
-import AuthForm from "../components/forms/AuthForm";
+import ForgotPasswordForm from "../components/forms/ForgotPasswordForm";
 import { UserContext } from "../context";
 import { useRouter } from "next/router";
 
-const Register = () => {
-    const[name, setName]=useState("");
+const ForgotPassword = () => {
     const[email, setEmail]=useState("");
-    const[password, setPassword]=useState("");
+    const[newPassword, setNewPassword]=useState("");
     const[secret, setSecret]=useState("");
     const [ok,setOk] = useState(false);
     const [loading, setLoading]=useState(false);
@@ -23,12 +22,11 @@ const Register = () => {
      try{
    // console.log(name,email,password,secret);
    setLoading(true);
-   const {data} = await   axios.post(`/register`,{
-            name,email,password,secret,
+   const {data} = await   axios.post(`/forgot-password`,{
+           email,newPassword,secret,
         });
-        setName('')
         setEmail('')
-        setPassword('')
+        setNewPassword('')
         setSecret('')
         setOk(data.ok);
         setLoading(false);
@@ -45,7 +43,7 @@ const Register = () => {
         <div className="container-fluid">
             <div className="row py-5 bg-default-image ">
                 <div className="col text-center">
-                  <h1>Register</h1>  
+                  <h1>Forgot Password</h1>  
                 </div>
                 </div>
 
@@ -53,13 +51,12 @@ const Register = () => {
 
                 <div className="row py-5">
                     <div className="col-md-6 offset-md-3">
-                    <AuthForm handleSubmit={handleSubmit}
-                        name={name}
-                        setName={setName}
+                    <ForgotPasswordForm handleSubmit={handleSubmit}
+                        
                         email={email}
                         setEmail={setEmail}
-                        password={password}
-                        setPassword={setPassword}
+                        newPassword={newPassword}
+                        setNewPassword={setNewPassword}
                         secret={secret}
                         setSecret={setSecret}
                         loading={loading}/>
@@ -70,7 +67,7 @@ const Register = () => {
                 <div className="col">
                     <Modal title="Congratulations" visible={ok} onCancel={()=>setOk(false)} footer={null}
                     >
-   <p>You have successfully registered.</p>        
+   <p>Congrats! You can now login with your new password</p>        
    <Link href="/login" className="btn btn-primary btn-sm">
             Login
             </Link>
@@ -78,13 +75,8 @@ const Register = () => {
                     </Modal>
                 </div>
             </div>
-            <div className="row">
-                <div className="col">
-                    <p className="text-center">Already registered? {""
-                    } <Link href="/login" className="btn btn-smprimary btn-">Login</Link></p>
-                </div>
-            </div>
+            
         </div>
     )
 }
-export default Register;
+export default ForgotPassword;

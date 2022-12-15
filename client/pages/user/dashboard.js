@@ -5,6 +5,7 @@ const Home = () => {
   const [state, setState] = useContext(UserContext);
 
   return (
+   
     <div className="container">
       <div className="row">
         <div className="col">
@@ -12,6 +13,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+ 
   );
 };
 
