@@ -9,11 +9,11 @@ const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword
                        
                         <div className="form-group p-2">
 <small><label className="text-muted">Email address</label></small>
-<input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" placeholder="Enter name" />
+<input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" placeholder="Enter email" />
                         </div> 
                         <div className="form-group p-2">
 <small><label className="text-muted">Password</label></small>
-<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" placeholder="Enter name" />
+<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" placeholder="Enter password" />
                         </div>
                         { page !== "login" && ( <>
                         <div className="form-group p-2">
@@ -34,7 +34,7 @@ const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword
                         </div>
                         </>)}
                        <div className="form-group p-2">
-                       <button disabled={page === "login" ? !email || !password : !name || !email || !password || !secret} className="btn btn-primary col-12">{loading ? <SyncOutlined spin className="py-1"/> : "Submit"}</button>
+                       <button disabled={page === "login" ? !email || !password || loading: !name || !email || !password || !secret || loading} className="btn btn-primary col-12">{loading ? <SyncOutlined spin className="py-1"/> : "Submit"}</button>
                        </div>
                         </form>
                       
