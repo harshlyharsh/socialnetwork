@@ -1,20 +1,27 @@
 import { Avatar } from "antd";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+// import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { CameraOutlined } from "@ant-design/icons";
 
-const CreatePostForm = ({ content, setContent, postSubmit }) => {
+const CreatePostForm = ({ content, setContent, postSubmit, handleImage}) => {
   return (
     <div className="card">
       <div className="card-body pb-3">
         <form className="form-group">
-          <textarea
+          <ReactQuill
+          theme="snow"
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => setContent(e)}
             className="form-control"
             placeholder="Write something..."
-          ></textarea>
+          />
         </form>
       </div>
 
-      <div className="card-footer">
+      <div className="card-footer  d-flex justify-content-between text-muted">
+
         <button
           disabled={!content}
           onClick={postSubmit}
@@ -22,6 +29,12 @@ const CreatePostForm = ({ content, setContent, postSubmit }) => {
         >
           Post
         </button>
+
+        <label>
+          <CameraOutlined className="mt-2" />
+          <input onChange={handleImage} type="file" accept="images/*" hidden />
+        </label>
+
       </div>
     </div>
   );
