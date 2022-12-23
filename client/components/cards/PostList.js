@@ -1,6 +1,8 @@
 import renderHTML from "react-render-html";
 import moment from "moment";
 import { Avatar } from "antd";
+import PostImage from "../images/PostImage";
+import { HeartOutlined, HeartFilled, CommentOutlined } from "@ant-design/icons";
 // Ryan
 const PostList = ({ posts }) => {
   return (
@@ -19,11 +21,15 @@ const PostList = ({ posts }) => {
             </div>
             <div className="card-body">{renderHTML(post.content)}</div>
             <div className="card-footer">
-              <img
-                src={post.image && post.image.url}
-                alt={post.postedBy.name}
-              />
-              <div className="pt-3">like / unlike 3 likes 2 comments</div>
+              {post.image && <PostImage url={post.image.url} />}
+              <div className="d-flex pt-2">
+                <HeartOutlined className="text-danger pt-2 h5" />
+                <div className="pt-2 pl-3" style={{ marginRight: "1rem" }}>
+                  3 likes
+                </div>
+                <CommentOutlined className="text-danger pt-2 h5 pl-5" />
+                <div className="pt-2 pl-3">2 comments</div>
+              </div>
             </div>
           </div>
         ))}
