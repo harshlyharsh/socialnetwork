@@ -6,7 +6,7 @@ const router = express.Router();
 // middleware
 import { requireSignin } from "../middlewares";
 // controllers
-import { createPost, uploadImage, postsByUser } from "../controllers/post";
+import { createPost, uploadImage, postsByUser, userPost} from "../controllers/post";
 
 router.post("/create-post", requireSignin, createPost);
 router.post(
@@ -17,5 +17,5 @@ router.post(
 );
 
 router.get("/user-posts", requireSignin, postsByUser);
-
+router.get('/user-post/:_id', requireSignin, userPost)
 module.exports = router;

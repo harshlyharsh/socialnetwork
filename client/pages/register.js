@@ -81,8 +81,7 @@ const Register = () => {
             footer={null}
           >
             <div>You have successfully registered</div>
-            <Link href='/login'>
-              <a className='btn btn-primary btn-sm'>Login</a>
+            <Link href='/login'className='btn btn-primary btn-sm'>Login
             </Link>
           </Modal>
         </div>

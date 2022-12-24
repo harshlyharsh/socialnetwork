@@ -41,12 +41,22 @@ export const uploadImage = async (req, res) => {
 
 export const postsByUser = async (req, res) => {
   try {
-    const posts = await Post.find({ postedBy: req.auth._id })
+    // const posts = await Post.find({ postedBy: req.user._id })
+    const posts = await Post.find()
       .populate("postedBy", "_id name image")
       .sort({ createdAt: -1 })
       .limit(10);
     // console.log('posts',posts)
     res.json(posts);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const userPost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params._id);
+    res.json(post);
   } catch (err) {
     console.log(err);
   }
