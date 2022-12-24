@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context";
-import CreatePostForm from "../../components/forms/CreatePostForm";
+import PostForm from "../../components/forms/PostForm";
 import { useRouter, userRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -82,7 +82,7 @@ const Home = () => {
 
         <div className="row py-3">
           <div className="col-md-8">
-            <CreatePostForm
+            <PostForm
               content={content}
               setContent={setContent}
               postSubmit={postSubmit}
