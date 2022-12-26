@@ -27,7 +27,7 @@ const Nav = () => {
       <Link href="/"
           className={`nav-link text-light logo ${current === "/" && "active"}`}
         >
-          MERNCAMP
+          socialnetwork
        
       </Link>
 
@@ -51,6 +51,16 @@ const Nav = () => {
                     }`}
                   >
                     Dashboard
+                 
+                </Link>
+              </li>
+              <li>
+                <Link href="/user/profile/update"
+                    className={`nav-link dropdown-item ${
+                      current === "/user/profile/update" && "active"
+                    }`}
+                  >
+                    Profile
                  
                 </Link>
               </li>

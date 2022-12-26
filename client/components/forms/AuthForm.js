@@ -1,8 +1,19 @@
 import {SyncOutlined} from "@ant-design/icons";
 
-const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword,secret,setSecret,loading,page,}) => (
+const AuthForm = ({handleSubmit,name,setName,email,setEmail,password,setPassword,secret,setSecret,loading,page,username,setUsername,about,setAbout,profileUpdate}) => (
     
-<form onSubmit={handleSubmit}> { page !== "login" && (<div className="form-group p-2">
+<form onSubmit={handleSubmit}> 
+{profileUpdate && (<div className="form-group p-2">
+<small><label className="text-muted">Username</label></small>
+<input value={username} onChange={(e) => setUsername(e.target.value)} type="text" className="form-control" placeholder="Enter name" />
+                        </div>)}
+
+                        {profileUpdate && (<div className="form-group p-2">
+<small><label className="text-muted">About</label></small>
+<input value={about} onChange={(e) => setAbout(e.target.value)} type="text" className="form-control" placeholder="Write about yourself.." />
+                        </div>)}
+
+{ page !== "login" && (<div className="form-group p-2">
 <small><label className="text-muted">Your name</label></small>
 <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" placeholder="Enter name" />
                         </div>)}
