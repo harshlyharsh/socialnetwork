@@ -115,3 +115,45 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
+export const profileUpdate = async (req, res) => {
+  try {
+    console.log('profile ', req.body);
+    const data = {};
+
+    if (req.body.username) {
+      data.username = req.body.username;
+    }
+    if (req.body.about) {
+      data.about = req.body.about;
+    }
+    if (req.body.name) {
+      data.name = req.body.name;
+    }
+    if (req.body.password) {
+      if (req.body.password.length < 6) {
+        return res.json({
+          error: 'password should be minimum 6 character long',
+        });
+      } else {
+        data.password = await hashPassword(req.body.password);
+      }
+    }
+    if (req.body.secret) {
+      data.secret = req.body.secret;
+    }
+
+    if (req.body.image) {
+      data.image = req.body.image;
+    }
+
+    let user = await User.findByIdAndUpdate(req.auth._id, data, { new: true });
+
+    user.password = undefined;
+    user.secret = undefined;
+    res.json(user);
+  } catch (err) {
+    if (err.code == 11000) {
+      return res.json({ errpr: 'duplicate username' });
+    }
+  }
+};
