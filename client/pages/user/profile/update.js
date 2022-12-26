@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal } from "antd";
@@ -20,12 +20,24 @@ const ProfileUpdate = () => {
   const [state] = useContext(UserContext);
   const router = useRouter();
 
+  useEffect(() => {
+    if (state && state.user) {
+      //   console.log("user from state => ", state.user);
+      setUsername(state.user.username);
+      setAbout(state.user.about);
+      setName(state.user.name);
+      setEmail(state.user.email);
+    }
+  }, [state && state.user]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // console.log(name, email, password, secret);
       setLoading(true);
-      const { data } = await axios.post(`/register`, {
+      const { data } = await axios.put(`/profile-update`, {
+        username,
+        about,
         name,
         email,
         password,
@@ -36,10 +48,6 @@ const ProfileUpdate = () => {
         toast.error(data.error);
         setLoading(false);
       } else {
-        setName("");
-        setEmail("");
-        setPassword("");
-        setSecret("");
         setOk(data.ok);
         setLoading(false);
       }
@@ -88,7 +96,7 @@ const ProfileUpdate = () => {
             footer={null}
           >
             <p>You have successfully registered.</p>
-            <Link href="/login" className="btn btn-primary btn-sm">Login
+            <Link href="/login"className="btn btn-primary btn-sm">Login
             </Link>
           </Modal>
         </div>
@@ -99,7 +107,7 @@ const ProfileUpdate = () => {
           <p className="text-center">
             Already registered?{" "}
             <Link href="/login">
-             Login
+              Login
             </Link>
           </p>
         </div>
