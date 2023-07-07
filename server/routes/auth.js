@@ -11,6 +11,7 @@ import {
   currentUser,
   forgotPassword,
   profileUpdate,
+  findPeople
 } from "../controllers/auth";
 
 router.post("/register", register);
@@ -19,5 +20,8 @@ router.get("/current-user", requireSignin, currentUser);
 router.post("/forgot-password", forgotPassword);
 
 router.put("/profile-update", requireSignin, profileUpdate);
+
+// find people to follow
+router.get("/find-people", requireSignin, findPeople)
 
 module.exports = router;

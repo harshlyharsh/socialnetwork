@@ -157,3 +157,19 @@ export const profileUpdate = async (req, res) => {
     }
   }
 };
+
+// find people to follow
+export const findPeople = async (req,res) => {
+  try{
+const user = await User.findById(req.user._id);
+// user.following
+let following = user.following;
+following.push(user._id);
+// why await not used?
+const people = await User.find({id:{$nin: following}}).limit(10);
+res.json(people);
+  }
+  catch(err){
+console.log(err);
+  }
+}

@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
 
+
 const Home = () => {
   const [state, setState] = useContext(UserContext);
   // state
@@ -14,12 +15,18 @@ const Home = () => {
   const [uploading, setUploading] = useState(false);
   // posts
   const [posts, setPosts] = useState([]);
+  // people
+  const [people,setPeople] = useState([]);
 
   // route
   const router = useRouter();
 
+  // findPeople
+  // useEffect use?
   useEffect(() => {
-    if (state && state.token) fetchUserPosts();
+    if (state && state.token) 
+   { fetchUserPosts();
+    findPeople();}
   }, [state && state.token]);
 
   const fetchUserPosts = async () => {
@@ -31,6 +38,18 @@ const Home = () => {
       console.log(err);
     }
   };
+
+  // findPeople
+  const findPeople = async () => {
+try{
+  const {data} = await axios.get("/find-people");
+  setPeople(data);
+}
+catch (err){
+console.log(err);
+}
+  }
+
 
   const postSubmit = async (e) => {
     e.preventDefault();
@@ -109,9 +128,9 @@ const Home = () => {
 
           {/* <pre>{JSON.stringify(posts, null, 4)}</pre> */}
 
-          <div className="col-md-4">Sidebar</div>
+          <div className="col-md-4"><pre>{JSON.stringify(posts, null, 4)}</pre></div>
         </div>
-      </div>
+      </div> 
    
   );
 };
