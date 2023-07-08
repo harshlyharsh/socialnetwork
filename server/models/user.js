@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -16,13 +16,14 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      min: 8,
-      max: 64,
       required: true,
+      min: 6,
+      max: 64,
     },
     secret: {
       type: String,
       required: true,
+      lowercase: true, // Red red
     },
     username: {
       type: String,
@@ -34,14 +35,10 @@ const userSchema = new Schema(
       url: String,
       public_id: String,
     },
-    role: {
-      type: String,
-      default: 'Subscriber',
-    },
-    following: [{ type: Schema.ObjectId, ref: 'User' }],
-    followers: [{ type: Schema.ObjectId, ref: 'User' }],
+    following: [{ type: Schema.ObjectId, ref: "User" }],
+    followers: [{ type: Schema.ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model("User", userSchema);

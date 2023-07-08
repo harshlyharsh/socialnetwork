@@ -49,7 +49,10 @@ const PostList = ({ posts, handleDelete }) => {
                       onClick={() => router.push(`/user/post/${post._id}`)}
                       className="text-danger pt-2 h5 px-2 mx-auto"
                     />
-                    <DeleteOutlined onClick={() => handleDelete(post)} className="text-danger pt-2 h5 px-2" />
+                    <DeleteOutlined
+                      onClick={() => handleDelete(post)}
+                      className="text-danger pt-2 h5 px-2"
+                    />
                   </>
                 )}
               </div>

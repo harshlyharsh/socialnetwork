@@ -24,11 +24,12 @@ const Nav = () => {
       className="nav d-flex justify-content-between"
       style={{ backgroundColor: "blue" }}
     >
-      <Link href="/"
+      <Link href="/">
+        <a
           className={`nav-link text-light logo ${current === "/" && "active"}`}
         >
-          socialnetwork
-       
+          MERNCAMP
+        </a>
       </Link>
 
       {state !== null ? (
@@ -45,25 +46,29 @@ const Nav = () => {
             </a>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li>
-                <Link href="/user/dashboard"
+                <Link href="/user/dashboard">
+                  <a
                     className={`nav-link dropdown-item ${
                       current === "/user/dashboard" && "active"
                     }`}
                   >
                     Dashboard
-                 
+                  </a>
                 </Link>
               </li>
+
               <li>
-                <Link href="/user/profile/update"
+                <Link href="/user/profile/update">
+                  <a
                     className={`nav-link dropdown-item ${
                       current === "/user/profile/update" && "active"
                     }`}
                   >
                     Profile
-                 
+                  </a>
                 </Link>
               </li>
+
               <li>
                 <a onClick={logout} className="nav-link">
                   Logout
@@ -74,22 +79,24 @@ const Nav = () => {
         </>
       ) : (
         <>
-          <Link href="/login"
+          <Link href="/login">
+            <a
               className={`nav-link text-light ${
                 current === "/login" && "active"
               }`}
             >
               Login
-            
+            </a>
           </Link>
 
-          <Link href="/register"
+          <Link href="/register">
+            <a
               className={`nav-link text-light ${
                 current === "/register" && "active"
               }`}
             >
               Register
-           
+            </a>
           </Link>
         </>
       )}

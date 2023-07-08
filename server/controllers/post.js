@@ -16,7 +16,7 @@ export const createPost = async (req, res) => {
     });
   }
   try {
-    const post = new Post({ content, image, postedBy: req.auth._id });
+    const post = new Post({ content, image, postedBy: req.user._id });
     post.save();
     res.json(post);
   } catch (err) {

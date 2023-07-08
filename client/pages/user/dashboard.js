@@ -1,11 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context";
+import UserRoute from "../../components/routes/UserRoute";
 import PostForm from "../../components/forms/PostForm";
 import { useRouter, userRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
-
+import People from "../../components/cards/People";
 
 const Home = () => {
   const [state, setState] = useContext(UserContext);
@@ -16,17 +17,16 @@ const Home = () => {
   // posts
   const [posts, setPosts] = useState([]);
   // people
-  const [people,setPeople] = useState([]);
+  const [people, setPeople] = useState([]);
 
   // route
   const router = useRouter();
 
-  // findPeople
-  // useEffect use?
   useEffect(() => {
-    if (state && state.token) 
-   { fetchUserPosts();
-    findPeople();}
+    if (state && state.token) {
+      fetchUserPosts();
+      findPeople();
+    }
   }, [state && state.token]);
 
   const fetchUserPosts = async () => {
@@ -39,17 +39,16 @@ const Home = () => {
     }
   };
 
-  // findPeople
+  // FIND PEOPLE TO FOLLOW :-
+  
   const findPeople = async () => {
-try{
-  const {data} = await axios.get("/find-people");
-  setPeople(data);
-}
-catch (err){
-console.log(err);
-}
-  }
-
+    try {
+      const { data } = await axios.get("/find-people");
+      setPeople(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const postSubmit = async (e) => {
     e.preventDefault();
@@ -102,9 +101,8 @@ console.log(err);
     }
   };
 
-
   return (
-    
+    <UserRoute>
       <div className="container-fluid">
         <div className="row py-5 text-light bg-default-image">
           <div className="col text-center">
@@ -128,10 +126,12 @@ console.log(err);
 
           {/* <pre>{JSON.stringify(posts, null, 4)}</pre> */}
 
-          <div className="col-md-4"><pre>{JSON.stringify(posts, null, 4)}</pre></div>
+          <div className="col-md-4">
+            <People people={people} />
+          </div>
         </div>
-      </div> 
-   
+      </div>
+    </UserRoute>
   );
 };
 
