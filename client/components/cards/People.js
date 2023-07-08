@@ -4,8 +4,6 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import { UserContext } from "../../context";
 
-// FIND PEOPLE TO FOLLOW :-
-
 const People = ({ people, handleFollow }) => {
   const [state] = useContext(UserContext);
 
@@ -15,7 +13,7 @@ const People = ({ people, handleFollow }) => {
     if (user.image) {
       return user.image.url;
     } else {
-      return "/images/default.jpg";
+      return "/images/logo.png";
     }
   };
 

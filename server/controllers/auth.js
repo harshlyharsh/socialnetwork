@@ -172,23 +172,43 @@ export const profileUpdate = async (req, res) => {
   }
 };
 
-// FIND PEOPLE TO FOLLOW :-
-
-// we have to show users that are not being followed
-export const findPeople = async (req,res) => {
-  try{
-    // getting all the users
-const user = await User.findById(req.user._id);
-// user following 
-// this will have array of user following
-let following = user.following;
-// we have to push ourselves also
-following.push(user._id);
-//nin is not including
-const people = await User.find({ _id: { $nin: following } })
+export const findPeople = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    // user.following
+    let following = user.following;
+    following.push(user._id);
+    const people = await User.find({ _id: { $nin: following } })
       .select("-password -secret")
       .limit(10);
     res.json(people);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// middleware
+export const addFollower = async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.body._id, {
+      $addToSet: { followers: req.user._id },
+    });
+    next();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const userFollow = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $addToSet: { following: req.body._id },
+      },
+      { new: true }
+    ).select("-password -secret");
+    res.json(user);
   } catch (err) {
     console.log(err);
   }
