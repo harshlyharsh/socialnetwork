@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
 import People from "../../components/cards/People";
 import Link from "next/link";
+import { Modal } from "antd";
 
 const Home = () => {
   const [state, setState] = useContext(UserContext);
@@ -19,6 +20,10 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   // people
   const [people, setPeople] = useState([]);
+  // comments
+  const [comment, setComment] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [currentPost, setCurrentPost] = useState({});
 
   // route
   const router = useRouter();
@@ -122,6 +127,41 @@ const Home = () => {
     }
   };
 
+  const handleLike = async (_id) => {
+    // console.log("like this post => ", _id);
+    try {
+      const { data } = await axios.put("/like-post", { _id });
+      // console.log("liked", data);
+      newsFeed();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnlike = async (_id) => {
+    // console.log("unlike this post => ", _id);
+    try {
+      const { data } = await axios.put("/unlike-post", { _id });
+      // console.log("unliked", data);
+      newsFeed();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleComment = (post) => {
+    setCurrentPost(post);
+    setVisible(true);
+  };
+
+  const addComment = async () => {
+    //
+  };
+
+  const removeComment = async () => {
+    //
+  };
+
   return (
     <UserRoute>
       <div className="container-fluid">
@@ -142,7 +182,13 @@ const Home = () => {
               image={image}
             />
             <br />
-            <PostList posts={posts} handleDelete={handleDelete} />
+            <PostList
+              posts={posts}
+              handleDelete={handleDelete}
+              handleLike={handleLike}
+              handleUnlike={handleUnlike}
+              handleComment={handleComment}
+            />
           </div>
 
           {/* <pre>{JSON.stringify(posts, null, 4)}</pre> */}
@@ -156,6 +202,15 @@ const Home = () => {
             <People people={people} handleFollow={handleFollow} />
           </div>
         </div>
+
+        <Modal
+          visible={visible}
+          onCancel={() => setVisible(false)}
+          title="Comment"
+          footer={null}
+        >
+          Show comment form
+        </Modal>
       </div>
     </UserRoute>
   );
