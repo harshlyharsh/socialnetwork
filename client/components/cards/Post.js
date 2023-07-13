@@ -14,7 +14,6 @@ import { UserContext } from "../../context";
 import { useRouter } from "next/router";
 import { imageSource } from "../../functions";
 import Link from "next/link";
-// import { removeComment } from "../../../server/controllers/post";
 
 const Post = ({
   post,
@@ -96,7 +95,10 @@ const Post = ({
               style={{ maxHeight: "125px", overflow: "scroll" }}
             >
               {post.comments.slice(0, commentsCount).map((c) => (
-                <li className="list-group-item d-flex justify-content-between align-items-start">
+                <li
+                  key={c._id}
+                  className="list-group-item d-flex justify-content-between align-items-start"
+                >
                   <div className="ms-2 me-auto">
                     <div>
                       <Avatar
