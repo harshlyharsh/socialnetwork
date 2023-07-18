@@ -2,15 +2,20 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context";
 import UserRoute from "../../components/routes/UserRoute";
 import PostForm from "../../components/forms/PostForm";
-import { useRouter, userRouter } from "next/router";
+import { useRouter} from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
 import People from "../../components/cards/People";
 import Link from "next/link";
-import { Modal, Pagination } from "antd";
+import { Modal, Pagination } from 'antd';
 import CommentForm from "../../components/forms/CommentForm";
 import Search from "../../components/Search";
+import io from "socket.io-client";
+
+const socket = io(process.env.NEXT_PUBLIC_SOCKETIO, {
+  reconnection: true,
+});
 
 const Home = () => {
   const [state, setState] = useContext(UserContext);
@@ -81,6 +86,8 @@ const Home = () => {
         toast.success("Post created");
         setContent("");
         setImage({});
+        // socket
+        socket.emit("new-post", data);
       }
     } catch (err) {
       console.log(err);
@@ -231,12 +238,11 @@ const Home = () => {
               removeComment={removeComment}
             />
 
-            <Pagination
-              current={page}
-              total={(totalPosts / 3) * 10}
-              onChange={(value) => setPage(value)}
-              className="pb-5"
-            />
+<Pagination
+            current={page}
+            total={(totalPosts / 3) * 10}
+            onChange={(value) => setPage(value)}
+          />
           </div>
 
           {/* <pre>{JSON.stringify(posts, null, 4)}</pre> */}
@@ -254,7 +260,7 @@ const Home = () => {
         </div>
 
         <Modal
-          visible={visible}
+          open={visible}
           onCancel={() => setVisible(false)}
           title="Comment"
           footer={null}
